@@ -1,22 +1,13 @@
 const koa = require('koa')
+const koaBody = require('koa-body')
 const app = new koa()
 
-app.use(async (ctx, next) => {
-  const start = Date.now()
-  await next()
-  const ms = Date.now() - start
-  console.log('ms 1 = ', ms)
-})
 
-app.use(async (ctx, next) => {
-  const start = Date.now()
-  await next()
-  const ms = Date.now() - start
-  console.log('ms 2 = ', ms)
-})
 
 app.use(async (ctx) => {
-  ctx.body = 'Hello Word!'
+  const body = ctx.request.body
+  if (!body.name) ctx.throw(400, 'Не чего нету')
+  ctx.body = { name: body.name.toUpperCase() }
 })
 
 if (!module.parent) app.listen(5000)
