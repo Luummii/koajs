@@ -1,26 +1,23 @@
 const koa = require('koa')
-const compose = require('koa-compose')
+const logger = require('koa-logger')
+
 const app = new koa()
 
-async function name_1 (ctx, next) {
-  await next()
-  console.log('mes 1')
+function testFunc (data) {
+  return async function (ctx, next) {
+    if (/(\.js)$/.test(ctx.path)) {
+      console.log('test')
+      await next()
+    } else {
+      await data.call(this, ctx, next)
+    }
+  }
 }
 
-async function name_2 (ctx, next) {
-  await next()
-  console.log('mes 2')
-}
+app.use(testFunc(logger()))
 
-async function name_3 (ctx, next) {
-  await next()
-  console.log('mes 3')
-}
-
-const all = compose([
-  name_1, name_2, name_3
-])
-
-app.use(all)
+app.use(async (ctx) => {
+  ctx.body = 'Hello word!'
+})
 
 if (!module.parent) app.listen(5000)
