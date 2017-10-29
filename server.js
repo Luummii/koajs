@@ -2,7 +2,9 @@ const koa = require('koa')
 const koaBody = require('koa-body')
 const app = new koa()
 
-
+app.use(koaBody({
+  jsonLimit: '1kb'
+}))
 
 app.use(async (ctx) => {
   const body = ctx.request.body
