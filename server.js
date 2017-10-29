@@ -1,15 +1,24 @@
 const koa = require('koa')
-const koaBody = require('koa-body')
 const app = new koa()
 
-app.use(koaBody({
-  jsonLimit: '1kb'
-}))
-
 app.use(async (ctx) => {
-  const body = ctx.request.body
-  if (!body.name) ctx.throw(400, 'Не чего нету')
-  ctx.body = { name: body.name.toUpperCase() }
+  ctx.status = 404
+
+  switch (ctx.accepts('html', 'json')) {
+    case 'html':
+      ctx.type = 'html'
+      ctx.body = '<p>Page not found</p>'
+      break
+    case 'json':      
+      ctx.body = {
+        message: 'Page not found'
+      }
+      break
+    default:
+    ctx.type = 'text'
+    ctx.body = 'Page not found'
+    
+  }
 })
 
 if (!module.parent) app.listen(5000)
