@@ -1,24 +1,25 @@
 const koa = require('koa')
+const auth = require('koa-basic-auth')
 const app = new koa()
 
 app.use(async (ctx, next) => {
   try {
     await next()
   } catch (err) {
-    ctx.status = err.status || 500
-    ctx.type = 'html'
-    ctx.body = '<p>Jopa</p>'
-    ctx.app.emit('error', err, ctx)
+    if (err.status === 401) {
+      ctx.status = 401
+      ctx.set('WWW-Authentificate', 'Basic')
+      ctx.body = 'Jopa'
+    } else {
+      throw err
+    }
   }
 })
 
-app.use(async () => {
-  throw new Error('booooooom')
-})
+app.use(auth({ name: 'test', pass: 'test' }))
 
-app.on('error', (err) => {
-  console.log('err message = ', err.message)
-  console.log('err = ', err)
+app.use(async (ctx) => {
+  ctx.body = 'Secret'
 })
 
 if (!module.parent) app.listen(5000)
