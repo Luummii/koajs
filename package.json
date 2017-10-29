@@ -1,0 +1,15 @@
+{
+  "name": "koajs",
+  "version": "1.0.0",
+  "description": "Let's consider some possibilities of the given framework (KoaJS)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "keywords": [],
+  "author": "Andrey Zimin <luummii@vuejs.fun>",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.3.0"
+  }
+}
