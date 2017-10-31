@@ -1,23 +1,47 @@
 const koa = require('koa')
-const koaBody = require('koa-body')
-const session = require('koa-session')
-const router = require('koa-router')()
-const CSRF = require('koa-csrf')
-
 const app = new koa()
 
-app.keys = ['session key', 'csrf key']
-
-app.use(session(app))
-app.use(koaBody())
-app.use(new CSRF())
-
-router.get('/token', token)
-
-app.use(router.routes())
-
-async function token (ctx) {
-  ctx.body = ctx.csrf
+const Napoleon = {
+  name: 'Napoleon'
 }
+const Adolf = {
+  name: 'Adolf'
+}
+const Stalin = {
+  name: 'Stalin'
+}
+
+const users = {
+  Napoleon: Napoleon,
+  Adolf: Adolf,
+  Stalin: Stalin
+}
+
+app.use(async (ctx, next) => {
+  await next()
+
+  if (!ctx.body) {
+    console.log('ctx.body', ctx.body)
+    return
+  }
+
+  const type = ctx.accepts('html')
+
+  if (type === false) ctx.throw(406)
+
+  if (type === 'html') {
+    ctx.type = 'html'
+    ctx.body = ctx.body.name
+    return
+  }
+})
+
+app.use(async (ctx, next) => {
+  const name = ctx.path.slice(1)
+  const user = users[name]
+  console.log('user', user)
+  ctx.body = user
+})
+
 
 if (!module.parent) app.listen(5000)
