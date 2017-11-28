@@ -1,3 +1,3 @@
-import favicon from 'favicon'
+import favicon from 'koa-favicon'
 
 export default (app) => { app.use(favicon()) }

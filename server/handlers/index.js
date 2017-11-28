@@ -3,12 +3,13 @@ import errors from './errors'
 import favicon from './favicon'
 import logger from './logger'
 import session from './session'
-import static from './static'
+import statics from './static'
 
 export default [
   favicon,
+  logger,
   errors,
   bodyParser,
   session,
-  static
+  statics
 ]
