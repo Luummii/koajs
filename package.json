@@ -1,24 +1,33 @@
 {
-  "name": "koajs",
+  "name": "koajs-example",
   "version": "1.0.0",
   "description": "Let's consider some possibilities of the given framework (KoaJS)",
   "main": "index.js",
   "scripts": {
-    "dev": "node server.js"
+    "dev": "node server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Luummii/koajs-example.git"
   },
   "keywords": [],
-  "author": "Andrey Zimin <luummii@vuejs.fun>",
+  "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Luummii/koajs-example/issues"
+  },
+  "homepage": "https://github.com/Luummii/koajs-example#readme",
   "dependencies": {
-    "koa": "^2.3.0",
-    "koa-basic-auth": "^2.0.0",
-    "koa-body": "^2.5.0",
-    "koa-compose": "^4.0.0",
-    "koa-csrf": "^3.0.6",
-    "koa-logger": "^3.1.0",
-    "koa-router": "^7.2.1",
-    "koa-session": "^5.5.0",
-    "koa-views": "^6.1.1",
-    "swig": "^1.4.2"
+    "config": "^1.28.1",
+    "koa": "^2.4.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0"
   }
 }
